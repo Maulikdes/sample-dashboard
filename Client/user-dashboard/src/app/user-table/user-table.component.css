@@ -1,0 +1,15 @@
+.full-width-table {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  background:#fff;
+}
+
+.table-header-logo{
+  filter : invert(0.8)
+}
+
+hr{
+  padding-bottom: 0%;
+}
