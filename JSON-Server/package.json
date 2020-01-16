@@ -1,0 +1,14 @@
+{
+  "name": "dummy-server",
+  "version": "1.0.0",
+  "description": "dummy json server",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db.json"
+  },
+  "author": "Maulik Desai",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.15.1"
+  }
+}
