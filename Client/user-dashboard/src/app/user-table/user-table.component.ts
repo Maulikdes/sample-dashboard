@@ -3,8 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { UserTableDataSource, UserTableItem } from './user-table-datasource';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-
+import { BsModalService } from 'ngx-bootstrap/modal'
+import { BsModalRef } from 'ngx-bootstrap';
+import { UserCreatorComponent } from '../user-creator/user-creator.component';
 
 @Component({
   selector: 'app-user-table',
@@ -15,7 +16,9 @@ export class UserTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<UserTableItem>;
+
   dataSource: UserTableDataSource;
+  public modalRef: BsModalRef;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'email', 'role', 'status', 'actions'];
@@ -30,7 +33,7 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     this.table.dataSource = this.dataSource;
   }
 
-  constructor(public dialog: MatDialog){
+  constructor(private dialogService:BsModalService){
 
   }
 
@@ -38,30 +41,10 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     alert("clicked");
   }
 
-  openDialog():void{
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: {}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  openDialog(modal):void{
+    this.modalRef = this.dialogService.show(modal);
+    this.modalRef.content.onClose.subscribe(result => {
+      console.log('results', result);
+  })
   }
-}
-
-
-@Component({
-  selector: 'app-dialog',
-  templateUrl: 'dialog-component.html',
-})
-export class DialogOverviewExampleDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
 }

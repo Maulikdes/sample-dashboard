@@ -6,19 +6,21 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { UserTableComponent } from './user-table/user-table.component';
-import { DialogOverviewExampleDialog } from './user-table/user-table.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse'
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { UserCreatorComponent } from './user-creator/user-creator.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     UserTableComponent,
-    DialogOverviewExampleDialog
+    UserCreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +29,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDialogModule,
     CollapseModule.forRoot(),
+    FormsModule,
+    ModalModule.forRoot()
+  ],
+  entryComponents:[
+    UserCreatorComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
