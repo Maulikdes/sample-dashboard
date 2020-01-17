@@ -6,15 +6,19 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { UserTableComponent } from './user-table/user-table.component';
+import { DialogOverviewExampleDialog } from './user-table/user-table.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse'
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    UserTableComponent
+    UserTableComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,9 @@ import { MatSortModule } from '@angular/material/sort';
     BrowserAnimationsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    CollapseModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

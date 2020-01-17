@@ -8,30 +8,33 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 export interface UserTableItem {
   name: string;
   id: number;
+  email: string;
+  role: string;
+  status: string;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: UserTableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {id: 1, name: 'Hydrogen', email:'abc@xyz.com', role:'Admin', status:'Active'},
+  {id: 2, name: 'Helium', email:'pqr@xyz.com', role:'Admin', status:'Active'},
+  {id: 3, name: 'Lithium', email:'ngh@xyz.com', role:'Admin', status:'Active'},
+  {id: 4, name: 'Beryllium', email:'nmnm@xyz.com', role:'Admin', status:'Active'},
+  {id: 5, name: 'Boron', email:'erew@xyz.com', role:'Customer Executive', status:'Active'},
+  {id: 6, name: 'Carbon', email:'erer@xyz.com', role:'Customer Executive', status:'Active'},
+  {id: 7, name: 'Nitrogen', email:'uyuy@xyz.com', role:'Customer Executive', status:'Active'},
+  {id: 8, name: 'Oxygen', email:'sdf@xyz.com', role:'Customer Executive', status:'Active'},
+  {id: 9, name: 'Fluorine', email:'fdf@xyz.com', role:'Customer Executive', status:'Pending'},
+  {id: 10, name: 'Neon', email:'vcbc@xyz.com', role:'Customer Executive', status:'Pending'},
+  {id: 11, name: 'Sodium', email:'kjj@xyz.com', role:'Customer Executive', status:'Pending'},
+  {id: 12, name: 'Magnesium', email:'vbvb@xyz.com', role:'Customer Executive', status:'Pending'},
+  {id: 13, name: 'Aluminum', email:'gnvn@xyz.com', role:'Customer Executive', status:'Pending'},
+  {id: 14, name: 'Silicon', email:'fgf@xyz.com', role:'Admin', status:'Pending'},
+  {id: 15, name: 'Phosphorus', email:'bvbv@xyz.com', role:'Admin', status:'Pending'},
+  {id: 16, name: 'Sulfur', email:'ere@xyz.com', role:'Admin', status:'Inactive'},
+  {id: 17, name: 'Chlorine', email:'yuty@xyz.com', role:'Admin', status:'Inactive'},
+  {id: 18, name: 'Argon', email:'werwe@xyz.com', role:'Admin', status:'Inactive'},
+  {id: 19, name: 'Potassium', email:'nbmnb@xyz.com', role:'Admin', status:'Inactive'},
+  {id: 20, name: 'Calcium', email:'fgf@xyz.com', role:'Admin', status:'Inactive'},
 ];
 
 /**
@@ -95,7 +98,9 @@ export class UserTableDataSource extends DataSource<UserTableItem> {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'email': return compare(a.email, b.email, isAsc);
+        case 'role': return compare(a.role, b.role, isAsc);
+        case 'status': return compare(a.status, b.status, isAsc);
         default: return 0;
       }
     });

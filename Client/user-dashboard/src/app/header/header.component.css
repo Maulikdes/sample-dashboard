@@ -1,3 +1,18 @@
 .active{
-    filter:invert(0) sepia(50%) saturate(2554%) hue-rotate(0deg) brightness(104%) contrast(104%);
+    filter:invert(25%) sepia(75%) saturate(2953%) hue-rotate(0deg) brightness(104%) contrast(104%);
+}
+
+.nav-item{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.impersonate{
+    position: absolute;
+    top:0.5rem;
+    right: 0;
+}
+
+.navbar-toggler{
+    margin-right: 15px;
 }
