@@ -1,11 +1,13 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { UserTableDataSource, UserTableItem } from './user-table-datasource';
+import { UserTableDataSource } from './user-table-datasource';
 import { BsModalService } from 'ngx-bootstrap/modal'
 import { BsModalRef } from 'ngx-bootstrap';
-import { UserCreatorComponent } from '../user-creator/user-creator.component';
+import { UserInfo } from '../modals/user-info';
+import { UserService } from '../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-table',
@@ -15,16 +17,38 @@ import { UserCreatorComponent } from '../user-creator/user-creator.component';
 export class UserTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatTable, {static: false}) table: MatTable<UserTableItem>;
+  @ViewChild(MatTable, {static: false}) table: MatTable<UserInfo>;
 
-  dataSource: UserTableDataSource;
+  public dataSource: UserTableDataSource;
   public modalRef: BsModalRef;
-
+  public selectedUser: UserInfo;
+  public isShowTable: boolean = true; 
+  
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'email', 'role', 'status', 'actions'];
+  userData : UserInfo[] = [];
 
   ngOnInit() {
-    this.dataSource = new UserTableDataSource();
+    let ctrl = this;
+    this.userService.getUsers().subscribe(users => {
+      this.userData = users; 
+      if(!ctrl.dataSource){ 
+       ctrl.dataSource = new UserTableDataSource();
+      }
+      ctrl.dataSource.setTableData(users);     
+    });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.setTableData(
+      this.userData.filter( user => {
+        return user.name.toLowerCase().includes(filterValue) || user.email.toLowerCase().includes(filterValue)
+          || user.status.toLowerCase().includes(filterValue) || user.role.toLowerCase().includes(filterValue) 
+          || (!!user.mobile && user.mobile.toString().includes(filterValue))
+      })
+    );    
   }
 
   ngAfterViewInit() {
@@ -33,18 +57,50 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     this.table.dataSource = this.dataSource;
   }
 
-  constructor(private dialogService:BsModalService){
-
+  constructor(private dialogService:BsModalService, private userService:UserService, private toastr : ToastrService){
   }
 
-  onEditClick(): void{
-    alert("clicked");
-  }
-
-  openDialog(modal):void{
+  onEditClick(user, modal): void{
+    this.selectedUser = user;
     this.modalRef = this.dialogService.show(modal);
-    this.modalRef.content.onClose.subscribe(result => {
-      console.log('results', result);
-  })
   }
+
+  onCreateClick(modal):void{
+    this.modalRef = this.dialogService.show(modal);
+  }
+
+  onDeleteClick(user, modal):void{
+    this.selectedUser = user;
+    this.modalRef = this.dialogService.show(modal);
+  }
+
+
+  
+
+  onCloseClick():void{
+    this.modalRef.hide();
+  }
+
+
+// -------- Callbacks
+
+  onUserCreated():void{
+    this.toastr.success("The User has been added");
+    this.modalRef.hide();
+  }
+
+  onUserUpdated():void{
+    this.toastr.success("The User has been updated");
+    this.modalRef.hide();
+  }
+
+  onDeleteUser():void{
+    this.userService.deleteUser(this.selectedUser.id).subscribe(
+      data => {
+        this.toastr.success("The User has been deleted");
+        this.modalRef.hide();
+      }
+    );
+  }
+
 }

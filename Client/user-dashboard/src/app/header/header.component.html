@@ -1,19 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" routerLink="#"><img src="/assets/Logo.svg" /></a>
+  <a class="navbar-brand" href="/"><img src="/assets/Logo.svg" /></a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [collapse]=isCollapsed>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
+      <li class="nav-item">
+        <a class="nav-link" href="dashboard" [ngClass]="{'active': router.url=='/dashboard' }" >
           <img class="svg_ico" height="24" width="24" src="/assets/ico_dashboard.svg" /> Dashboard
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="users" [ngClass]="{'active': router.url=='/users' }" >
           <img class="svg_ico" height="24" width="24" src="/assets/ico_users.svg" /> Users
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="sessionmanager" [ngClass]="{'active': router.url=='/sessionmanager' }" >
           <img class="svg_ico" height="24" width="24" src="/assets/ico_sessionmanager.svg" /> Session Manager
         </a>
       </li>
@@ -22,18 +22,18 @@
   <div class="navbar-nav-scroll impersonate">
     <ul class="navbar-nav bd-navbar-nav flex-row">
       <li class="nav-item">
-        <a class="nav-link" href="/users">
+        <a class="nav-link" href="#" onclick="return false;">
           <img class="svg_ico" height="24" width="24" src="/assets/ico_notification.svg" />
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/users">
+        <a class="nav-link" href="#" onclick="return false;">
           <img class="svg_ico" height="24" width="24" src="/assets/ico_user.svg" />
           John Smith
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/users">
+        <a class="nav-link" href="#" onclick="return false;">
           <img class="svg_ico" height="15" width="15" src="/assets/ico_downarrow.svg" />
         </a>
       </li>

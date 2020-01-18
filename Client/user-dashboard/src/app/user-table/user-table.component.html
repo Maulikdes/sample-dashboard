@@ -4,12 +4,13 @@
       <img class="table-header-logo" height="25" width="25" src="/assets/ico_users.svg" /> Users
     </div>
     <div class="col-8 col-lg-4 row header pull-right">
-      <div class="col-8" >
-        <input type="text" placeholder="Search" class="form-control" />
+      <div class="col-8">
+        <input type="text" placeholder="Search" (keyup)="applyFilter($event.target.value)"  class="form-control" />
         <i class="search_ico"></i>
       </div>
       <div class="col-4">
-        <button type="button" (click)="openDialog(content)" class="btn btn-warning text-white"><img src="/assets/ico_add.svg" />&nbsp;Add User</button>
+        <button type="button" (click)="onCreateClick(addUser)" class="btn btn-warning text-white"><img
+            src="/assets/ico_add.svg" />&nbsp;Add User</button>
       </div>
     </div>
   </div>
@@ -43,8 +44,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <img (click)="onEditClick()" class="btn" src="assets/ico_edit.svg">
-        <img (click)="onDeleteClick()" height="25px" width="25px" class="btn" src="assets/ico_delete.png">
+        <img (click)="onEditClick(row, editUser)" class="btn" src="assets/ico_edit.svg">
+        <img (click)="onDeleteClick(row, deleteUser)" class="btn" src="assets/ico_delete.svg">
       </td>
     </ng-container>
 
@@ -57,30 +58,45 @@
   </mat-paginator>
 </div>
 
-<ng-template #content let-c="close" let-d="dismiss">
+<!-- popup modal template for adding user -->
+<ng-template #addUser let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h3 class="modal-title" id="modal-basic-title">Add User</h3>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="onCloseClick()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <div class="form-group text-center" >
-      <input type="text" placeholder="Name" class="form-control col-10 offset-1" />
-    </div>
-    <div class="form-group text-center" >
-      <input type="email" placeholder="Email" class="form-control col-10 offset-1" />
-    </div>
-    <div class="form-check-inline">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="role">Admin
-      </label>
-    </div>
-    <div class="form-check-inline">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="role" disabled>Customer Executive
-      </label>
-    </div>
+    <app-user-creator (onUserCreatedCallback)="onUserCreated()"></app-user-creator>
+  </div>
+</ng-template>
 
+<!-- popup modal template for updating user -->
+<ng-template #editUser let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-basic-title">Update User</h3>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseClick()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-user-creator [user]="selectedUser" (onUserCreatedCallback)="onUserUpdated()"></app-user-creator>
+  </div>
+</ng-template>
+
+<!-- popup modal template for deleting user -->
+<ng-template #deleteUser let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-basic-title">Delete User</h3>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseClick()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete {{selectedUser.name}}?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCloseClick()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="onDeleteUser()">Ok</button>
   </div>
 </ng-template>

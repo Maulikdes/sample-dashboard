@@ -2,53 +2,28 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
-
-// TODO: Replace this with your own data model type
-export interface UserTableItem {
-  name: string;
-  id: number;
-  email: string;
-  role: string;
-  status: string;
-}
-
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: UserTableItem[] = [
-  {id: 1, name: 'Hydrogen', email:'abc@xyz.com', role:'Admin', status:'Active'},
-  {id: 2, name: 'Helium', email:'pqr@xyz.com', role:'Admin', status:'Active'},
-  {id: 3, name: 'Lithium', email:'ngh@xyz.com', role:'Admin', status:'Active'},
-  {id: 4, name: 'Beryllium', email:'nmnm@xyz.com', role:'Admin', status:'Active'},
-  {id: 5, name: 'Boron', email:'erew@xyz.com', role:'Customer Executive', status:'Active'},
-  {id: 6, name: 'Carbon', email:'erer@xyz.com', role:'Customer Executive', status:'Active'},
-  {id: 7, name: 'Nitrogen', email:'uyuy@xyz.com', role:'Customer Executive', status:'Active'},
-  {id: 8, name: 'Oxygen', email:'sdf@xyz.com', role:'Customer Executive', status:'Active'},
-  {id: 9, name: 'Fluorine', email:'fdf@xyz.com', role:'Customer Executive', status:'Pending'},
-  {id: 10, name: 'Neon', email:'vcbc@xyz.com', role:'Customer Executive', status:'Pending'},
-  {id: 11, name: 'Sodium', email:'kjj@xyz.com', role:'Customer Executive', status:'Pending'},
-  {id: 12, name: 'Magnesium', email:'vbvb@xyz.com', role:'Customer Executive', status:'Pending'},
-  {id: 13, name: 'Aluminum', email:'gnvn@xyz.com', role:'Customer Executive', status:'Pending'},
-  {id: 14, name: 'Silicon', email:'fgf@xyz.com', role:'Admin', status:'Pending'},
-  {id: 15, name: 'Phosphorus', email:'bvbv@xyz.com', role:'Admin', status:'Pending'},
-  {id: 16, name: 'Sulfur', email:'ere@xyz.com', role:'Admin', status:'Inactive'},
-  {id: 17, name: 'Chlorine', email:'yuty@xyz.com', role:'Admin', status:'Inactive'},
-  {id: 18, name: 'Argon', email:'werwe@xyz.com', role:'Admin', status:'Inactive'},
-  {id: 19, name: 'Potassium', email:'nbmnb@xyz.com', role:'Admin', status:'Inactive'},
-  {id: 20, name: 'Calcium', email:'fgf@xyz.com', role:'Admin', status:'Inactive'},
-];
+import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
+import { UserInfo } from '../modals/user-info';
+import { EventEmitter } from '@angular/core';
 
 /**
  * Data source for the UserTable view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class UserTableDataSource extends DataSource<UserTableItem> {
-  data: UserTableItem[] = EXAMPLE_DATA;
+export class UserTableDataSource extends DataSource<UserInfo> {
   paginator: MatPaginator;
   sort: MatSort;
+  private tableDataUpdated = new EventEmitter<any>();
+  private data : UserInfo[];
 
   constructor() {
     super();
+  }
+
+  setTableData(data){
+    this.data = data;
+    this.tableDataUpdated.emit()
   }
 
   /**
@@ -56,11 +31,12 @@ export class UserTableDataSource extends DataSource<UserTableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<UserTableItem[]> {
+  connect(): Observable<UserInfo[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
       observableOf(this.data),
+      this.tableDataUpdated,
       this.paginator.page,
       this.sort.sortChange
     ];
@@ -80,7 +56,7 @@ export class UserTableDataSource extends DataSource<UserTableItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: UserTableItem[]) {
+  private getPagedData(data: UserInfo[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -89,7 +65,7 @@ export class UserTableDataSource extends DataSource<UserTableItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: UserTableItem[]) {
+  private getSortedData(data: UserInfo[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

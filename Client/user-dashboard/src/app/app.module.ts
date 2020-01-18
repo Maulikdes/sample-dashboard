@@ -13,6 +13,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UserCreatorComponent } from './user-creator/user-creator.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -20,18 +24,22 @@ import { UserCreatorComponent } from './user-creator/user-creator.component';
     AppComponent,
     HeaderComponent,
     UserTableComponent,
-    UserCreatorComponent
+    UserCreatorComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatRadioModule,
     MatPaginatorModule,
     MatSortModule,
     CollapseModule.forRoot(),
     FormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   entryComponents:[
     UserCreatorComponent
