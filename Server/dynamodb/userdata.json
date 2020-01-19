@@ -1,0 +1,175 @@
+[
+  {
+    "id": "1",
+    "name": "test1",
+    "email": "abc@ewrwe.com",
+    "role": "Admin",
+    "status": "Active"
+  },
+  {
+    "id": "3",
+    "name": "Lithium",
+    "email": "ngh@bc.edu",
+    "role": "Admin",
+    "status": "Active",
+    "mobile": null
+  },
+  {
+    "id": "4",
+    "name": "Beryllium",
+    "email": "nm",
+    "role": "Admin",
+    "status": "Active"
+  },
+  {
+    "id": "5",
+    "name": "Boron",
+    "email": "erew@xyz.com",
+    "role": "Customer Executive",
+    "status": "Active"
+  },
+  {
+    "id": "6",
+    "name": "Carbon",
+    "email": "erer@xyz.com",
+    "role": "Customer Executive",
+    "status": "Active"
+  },
+  {
+    "id": "7",
+    "name": "Nitrogen",
+    "email": "uyuy@xyz.com",
+    "role": "Customer Executive",
+    "status": "Active"
+  },
+  {
+    "id": "8",
+    "name": "Oxygen",
+    "email": "sdf@xyz.com",
+    "role": "Customer Executive",
+    "status": "Active"
+  },
+  {
+    "id": "9",
+    "name": "Fluorine",
+    "email": "fdf@xyz.com",
+    "role": "Customer Executive",
+    "status": "Pending"
+  },
+  {
+    "id": "10",
+    "name": "Neon",
+    "email": "vcbc@xyz.com",
+    "role": "Customer Executive",
+    "status": "Pending"
+  },
+  {
+    "id": "11",
+    "name": "Sodium",
+    "email": "kjj@xyz.com",
+    "role": "Customer Executive",
+    "status": "Pending"
+  },
+  {
+    "id": "12",
+    "name": "Magnesium",
+    "email": "vbvb@xyz.com",
+    "role": "Customer Executive",
+    "status": "Pending"
+  },
+  {
+    "id": "13",
+    "name": "Aluminum",
+    "email": "gnvn@xyz.com",
+    "role": "Customer Executive",
+    "status": "Pending"
+  },
+  {
+    "id": "14",
+    "name": "Silicon",
+    "email": "fgf@xyz.com",
+    "role": "Admin",
+    "status": "Pending"
+  },
+  {
+    "id": "15",
+    "name": "Phosphorus",
+    "email": "bvbv@xyz.com",
+    "role": "Admin",
+    "status": "Pending"
+  },
+  {
+    "id": "16",
+    "name": "Sulfur",
+    "email": "ere@xyz.com",
+    "role": "Admin",
+    "status": "Inactive"
+  },
+  {
+    "id": "17",
+    "name": "Chlorine",
+    "email": "yuty@xyz.com",
+    "role": "Admin",
+    "status": "Inactive"
+  },
+  {
+    "id": "18",
+    "name": "Argon",
+    "email": "werwe@xyz.com",
+    "role": "Admin",
+    "status": "Inactive"
+  },
+  {
+    "id": "19",
+    "name": "Potassium",
+    "email": "nbmnb@xyz.com",
+    "role": "Admin",
+    "status": "Inactive"
+  },
+  {
+    "id": "20",
+    "name": "Calcium",
+    "email": "fgf@xyz.com",
+    "role": "Admin",
+    "status": "Inactive"
+  },
+  {
+    "id": "21",
+    "name": "test",
+    "email": "test@gmaiil.com",
+    "role": "Admin",
+    "status": "Pending"
+  },
+  {
+    "id": "22",
+    "name": "test3",
+    "email": "abc@xyz.com",
+    "role": "Admin",
+    "status": "Pending",
+    "mobile": 1122312323
+  },
+  {
+    "id": "23",
+    "name": "test",
+    "email": "edsf@fgsdf.com",
+    "role": "Admin",
+    "status": "Pending",
+    "mobile": 9867874565
+  },
+  {
+    "role": "Admin",
+    "status": "Pending",
+    "name": "test",
+    "email": "etsd@adf.fgf",
+    "id": "24",
+    "mobile": 5634567578
+  },
+  {
+    "role": "Admin",
+    "status": "Pending",
+    "name": "dfgdfg",
+    "email": "fgf@dfgsd.com",
+    "mobile": 4543556686,
+    "id": "25"
+  }
+]
