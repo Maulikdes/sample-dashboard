@@ -1,0 +1,12 @@
+.mat-elevation-z8 {
+    background:#fff;
+}
+
+.table-header-logo{
+    filter : invert(0.8)
+}
+  
+
+.chart-card {
+    max-width: 400px;
+}

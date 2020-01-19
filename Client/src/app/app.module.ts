@@ -17,7 +17,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { MatCardModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HeaderComponent,
     UserTableComponent,
     UserCreatorComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -33,13 +37,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserAnimationsModule,
     MatTableModule,
     MatRadioModule,
+    MatCardModule,
     MatPaginatorModule,
     MatSortModule,
     CollapseModule.forRoot(),
     FormsModule,
     ModalModule.forRoot(),
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule,
+    MatToolbarModule
   ],
   entryComponents:[
     UserCreatorComponent

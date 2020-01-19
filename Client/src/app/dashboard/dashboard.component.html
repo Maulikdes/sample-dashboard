@@ -1,0 +1,34 @@
+<div class="mat-elevation-z8">
+  <div class="p-3 row">
+    <div class="col-4 col-lg-8 header">
+      <img class="table-header-logo" src="/assets/ico_dashboard.svg" /> Dashboard
+    </div>
+  </div>
+  <hr />
+  <div class="row p-3">
+    <div class="col-lg-6 col-12">
+      <mat-toolbar> User Status</mat-toolbar>
+      <mat-card>
+        <div style="display: block;">
+          <canvas baseChart [data]="pieChartUserData" [labels]="pieChartUserLabels" [chartType]="pieChartType"
+            [colors]="pieChartUserColors" [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+          </canvas>
+        </div>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-lg-6 col-12">
+      <mat-toolbar> User Role </mat-toolbar>
+      <mat-card>  
+        <div style="display: block;">
+          <canvas baseChart [data]="pieChartRoleData" [labels]="pieChartRoleLabels" [chartType]="pieChartType"
+            [colors]="pieChartRoleColors" [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+          </canvas>
+        </div>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
