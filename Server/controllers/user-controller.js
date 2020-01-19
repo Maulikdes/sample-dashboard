@@ -11,32 +11,48 @@ exports.getUsers = function (req, res) {
 // Method to get specific user
 exports.getUser = function (req, res) {
     var userId = req.params.id;
-    userService.getUser(userId, function (data) {
+    var successCallback = function (data) {
         res.send(data);
-    });
+    }
+    var errCallback = function (err) {
+        res.status(500).send(new Error(err));
+    }
+    userService.getUser(userId, successCallback, errCallback)
 };
 
 // Method to create a user
 exports.createUser = function (req, res) {
     var user = req.body;
     user.id = uuidv1();
-    userService.createUser(user, function (data) {
+    var successCallback = function (data) {
         res.send(data);
-    });
+    }
+    var errCallback = function (err) {
+        res.status(500).send(new Error(err));
+    }
+    userService.createUser(user, successCallback, errCallback);
 };
 
 // Method to update a user
 exports.updateUser = function (req, res) {
     var user = req.body;
-    userService.updateUser(user, function (data) {
+    var successCallback = function (data) {
         res.send(data);
-    });
+    }
+    var errCallback = function (err) {
+        res.status(500).send(new Error(err));
+    }
+    userService.updateUser(user, successCallback, errCallback)
 };
 
 // Method to delete a user
 exports.deleteUser = function (req, res) {
     var userId = req.params.id;
-    userService.deleteUser(userId, function (data) {
+    var successCallback = function (data) {
         res.send(data);
-    });
+    }
+    var errCallback = function (err) {
+        res.status(500).send(new Error(err));
+    }
+    userService.deleteUser(userId, successCallback, errCallback);
 };

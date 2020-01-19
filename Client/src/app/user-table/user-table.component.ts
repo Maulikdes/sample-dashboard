@@ -27,6 +27,7 @@ export class UserTableComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'email', 'role', 'status', 'actions'];
   userData : UserInfo[] = [];
+  action : string;
 
   ngOnInit() {
     let ctrl = this;
@@ -61,11 +62,13 @@ export class UserTableComponent implements AfterViewInit, OnInit {
   }
 
   onEditClick(user, modal): void{
+    this.action = "edit";
     this.selectedUser = user;
     this.modalRef = this.dialogService.show(modal);
   }
 
   onCreateClick(modal):void{
+    this.action ="add";
     this.modalRef = this.dialogService.show(modal);
   }
 
@@ -73,9 +76,6 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     this.selectedUser = user;
     this.modalRef = this.dialogService.show(modal);
   }
-
-
-  
 
   onCloseClick():void{
     this.modalRef.hide();
@@ -85,13 +85,13 @@ export class UserTableComponent implements AfterViewInit, OnInit {
 // -------- Callbacks
 
   onUserCreated():void{
-    this.toastr.success("The User has been added");
+    this.toastr.success("The User has been "+ this.action=="add"? "added" : "updated"+ " Successfully!");
     this.modalRef.hide();
   }
 
-  onUserUpdated():void{
-    this.toastr.success("The User has been updated");
-    this.modalRef.hide();
+  onActionFailedCallback():void{
+    this.toastr.error("Error occured while "+ (this.action=="add"? "adding" : "updating")+ " user!");
+    // this.modalRef.hide();
   }
 
   onDeleteUser():void{

@@ -9,7 +9,7 @@
         <i class="search_ico"></i>
       </div>
       <div class="col-4">
-        <button type="button" (click)="onCreateClick(addUser)" class="btn btn-warning text-white"><img
+        <button type="button" (click)="onCreateClick(userTemplate)" class="btn btn-warning text-white"><img
             src="/assets/ico_add.svg" />&nbsp;Add User</button>
       </div>
     </div>
@@ -44,7 +44,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <img (click)="onEditClick(row, editUser)" class="btn" src="assets/ico_edit.svg">
+        <img (click)="onEditClick(row, userTemplate)" class="btn" src="assets/ico_edit.svg">
         <img (click)="onDeleteClick(row, deleteUser)" class="btn" src="assets/ico_delete.svg">
       </td>
     </ng-container>
@@ -58,29 +58,16 @@
   </mat-paginator>
 </div>
 
-<!-- popup modal template for adding user -->
-<ng-template #addUser let-c="close" let-d="dismiss">
+<!-- popup modal template for adding and updating user -->
+<ng-template #userTemplate let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h3 class="modal-title" id="modal-basic-title">Add User</h3>
+    <h3 class="modal-title" id="modal-basic-title">{{ action=='add' ? "Add" : "Update"}} User</h3>
     <button type="button" class="close" aria-label="Close" (click)="onCloseClick()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <app-user-creator (onUserCreatedCallback)="onUserCreated()"></app-user-creator>
-  </div>
-</ng-template>
-
-<!-- popup modal template for updating user -->
-<ng-template #editUser let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h3 class="modal-title" id="modal-basic-title">Update User</h3>
-    <button type="button" class="close" aria-label="Close" (click)="onCloseClick()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-user-creator [user]="selectedUser" (onUserCreatedCallback)="onUserUpdated()"></app-user-creator>
+    <app-user-creator [user]="selectedUser" (onSuccessCallback)="onSuccessCallback()" (onFailedCallback)="onActionFailedCallback()" ></app-user-creator>
   </div>
 </ng-template>
 

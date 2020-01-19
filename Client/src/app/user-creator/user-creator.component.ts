@@ -18,8 +18,8 @@ export class UserCreatorComponent implements OnInit {
   user : UserInfo;
   
   userToUpdate : UserInfo;
-  @Output() onUserCreatedCallback: EventEmitter<any> = new EventEmitter();
-
+  @Output() onSucessCallback: EventEmitter<any> = new EventEmitter();
+  @Output() onFailedCallback: EventEmitter<any> = new EventEmitter();
   constructor(private userService : UserService) {
   }
 
@@ -67,15 +67,24 @@ export class UserCreatorComponent implements OnInit {
 
   onCreateClick():void {
     if(this.validateUser()){
-      let callback = this.onUserCreatedCallback;
+      let successCallback = this.onSucessCallback;
+      let failCallback = this.onFailedCallback;
       if(this.isEditor){
-        this.userService.updateUser(this.userToUpdate).subscribe(data =>
-          callback.emit()
+        this.userService.updateUser(this.userToUpdate).subscribe(data => {
+          successCallback.emit();
+          },
+          err =>{
+            failCallback.emit();
+          }
         );
       }
       else{ 
-        this.userService.createUser(this.userToUpdate).subscribe(data =>
-          callback.emit()
+        this.userService.createUser(this.userToUpdate).subscribe(data => {
+            successCallback.emit();
+          },
+          err =>{
+            failCallback.emit();
+          }
         );
       }
     }
