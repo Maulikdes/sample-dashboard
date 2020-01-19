@@ -15,28 +15,28 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./user-table.component.css']
 })
 export class UserTableComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatTable, {static: false}) table: MatTable<UserInfo>;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatTable, { static: false }) table: MatTable<UserInfo>;
 
   public dataSource: UserTableDataSource;
   public modalRef: BsModalRef;
   public selectedUser: UserInfo;
-  public isShowTable: boolean = true; 
-  
+  public isShowTable: boolean = true;
+
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'email', 'role', 'status', 'actions'];
-  userData : UserInfo[] = [];
-  action : string;
+  userData: UserInfo[] = [];
+  action: string;
 
   ngOnInit() {
     let ctrl = this;
     this.userService.getUsers().subscribe(users => {
-      this.userData = users; 
-      if(!ctrl.dataSource){ 
-       ctrl.dataSource = new UserTableDataSource();
+      this.userData = users;
+      if (!ctrl.dataSource) {
+        ctrl.dataSource = new UserTableDataSource();
       }
-      ctrl.dataSource.setTableData(users);     
+      ctrl.dataSource.setTableData(users);
     });
   }
 
@@ -44,12 +44,12 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.setTableData(
-      this.userData.filter( user => {
+      this.userData.filter(user => {
         return user.name.toLowerCase().includes(filterValue) || user.email.toLowerCase().includes(filterValue)
-          || user.status.toLowerCase().includes(filterValue) || user.role.toLowerCase().includes(filterValue) 
+          || user.status.toLowerCase().includes(filterValue) || user.role.toLowerCase().includes(filterValue)
           || (!!user.mobile && user.mobile.toString().includes(filterValue))
       })
-    );    
+    );
   }
 
   ngAfterViewInit() {
@@ -58,43 +58,44 @@ export class UserTableComponent implements AfterViewInit, OnInit {
     this.table.dataSource = this.dataSource;
   }
 
-  constructor(private dialogService:BsModalService, private userService:UserService, private toastr : ToastrService){
+  constructor(private dialogService: BsModalService, private userService: UserService, private toastr: ToastrService) {
   }
 
-  onEditClick(user, modal): void{
+  onEditClick(user, modal): void {
     this.action = "edit";
     this.selectedUser = user;
     this.modalRef = this.dialogService.show(modal);
   }
 
-  onCreateClick(modal):void{
-    this.action ="add";
+  onCreateClick(modal): void {
+    this.action = "add";
+    this.selectedUser = undefined;
     this.modalRef = this.dialogService.show(modal);
   }
 
-  onDeleteClick(user, modal):void{
+  onDeleteClick(user, modal): void {
     this.selectedUser = user;
     this.modalRef = this.dialogService.show(modal);
   }
 
-  onCloseClick():void{
+  onCloseClick(): void {
     this.modalRef.hide();
   }
 
 
-// -------- Callbacks
+  // -------- Callbacks
 
-  onUserCreated():void{
-    this.toastr.success("The User has been "+ this.action=="add"? "added" : "updated"+ " Successfully!");
+  onSuccessCallback(): void {
+    this.toastr.success("The User has been " + this.action == "add" ? "added" : "updated" + " Successfully!");
     this.modalRef.hide();
   }
 
-  onActionFailedCallback():void{
-    this.toastr.error("Error occured while "+ (this.action=="add"? "adding" : "updating")+ " user!");
+  onActionFailedCallback(): void {
+    this.toastr.error("Error occured while " + (this.action == "add" ? "adding" : "updating") + " user!");
     // this.modalRef.hide();
   }
 
-  onDeleteUser():void{
+  onDeleteUser(): void {
     this.userService.deleteUser(this.selectedUser.id).subscribe(
       data => {
         this.toastr.success("The User has been deleted");

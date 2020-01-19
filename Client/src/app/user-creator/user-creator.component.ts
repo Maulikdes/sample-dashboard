@@ -18,7 +18,7 @@ export class UserCreatorComponent implements OnInit {
   user : UserInfo;
   
   userToUpdate : UserInfo;
-  @Output() onSucessCallback: EventEmitter<any> = new EventEmitter();
+  @Output() onSuccessCallback: EventEmitter<any> = new EventEmitter();
   @Output() onFailedCallback: EventEmitter<any> = new EventEmitter();
   constructor(private userService : UserService) {
   }
@@ -34,57 +34,63 @@ export class UserCreatorComponent implements OnInit {
       this.userToUpdate.status = 'Pending';
     }
   }
-  validateUser():boolean{
-    if(this.userToUpdate.name==''){
+
+  validateName():boolean{
+    if(!this.userToUpdate.name || this.userToUpdate.name==''){
       this.nameValidationFailed = true;
     }else{
       this.nameValidationFailed = false;
     }
-    if(this.userToUpdate.email!=''){
+    return this.nameValidationFailed;
+  }
+
+  validateEmail():boolean{
+    if(!!this.userToUpdate.email && this.userToUpdate.email!=''){
       let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       this.emailValidationFailed =  !re.test(String(this.userToUpdate.email.toLowerCase()));
     }
     else{
       this.emailValidationFailed = true;
     }
+    return this.emailValidationFailed;
+  }
 
+  validateMobile():boolean{
     if(this.userToUpdate.mobile){
-      if(this.userToUpdate.mobile.toString().length != 10){
-        this.mobileValidationFailed = true;
-      }else{
-        this.mobileValidationFailed = false;
-      }
+      // simple mobile regex (10 digits and first digit is non zero)
+      let re = /^[1-9]{1}[0-9]{9}$/
+      this.userToUpdate.mobile.toString().length != 10
+      this.mobileValidationFailed = !re.test(String(this.userToUpdate.mobile.toString()));
     }else{
       this.mobileValidationFailed = false;
     }
+    return this.mobileValidationFailed;
+  }
 
+  validateUser():boolean{
+    this.validateName();
+    this.validateEmail();
+    this.validateMobile();
     if(this.nameValidationFailed || this.mobileValidationFailed || this.emailValidationFailed ){
       return false;
-    }else{
-      return true;
     }
+    return true;
   }
 
   onCreateClick():void {
     if(this.validateUser()){
-      let successCallback = this.onSucessCallback;
+      let successCallback = this.onSuccessCallback;
       let failCallback = this.onFailedCallback;
       if(this.isEditor){
-        this.userService.updateUser(this.userToUpdate).subscribe(data => {
-          successCallback.emit();
-          },
-          err =>{
-            failCallback.emit();
-          }
+        this.userService.updateUser(this.userToUpdate)
+        .subscribe(data => successCallback.emit(),
+          err => failCallback.emit()
         );
       }
       else{ 
-        this.userService.createUser(this.userToUpdate).subscribe(data => {
-            successCallback.emit();
-          },
-          err =>{
-            failCallback.emit();
-          }
+        this.userService.createUser(this.userToUpdate)
+        .subscribe(data => successCallback.emit(),
+          err => failCallback.emit()
         );
       }
     }

@@ -1,10 +1,10 @@
 <div class="form-group text-center">
-    <input [(ngModel)]="userToUpdate.name" type="text" placeholder="Name" class="form-control col-10 offset-1" />
-    <small *ngIf="nameValidationFailed" class="text-danger">* name is required</small>
+    <input (blur) = validateName() [(ngModel)]="userToUpdate.name" type="text" placeholder="Name" class="form-control col-10 offset-1" />
+    <small *ngIf="nameValidationFailed " class="text-danger">* name is required</small>
 </div>
 <div class="form-group text-center">
-    <input [(ngModel)]="userToUpdate.email" type="email" placeholder="Email" class="form-control col-10 offset-1" />
-    <small *ngIf="emailValidationFailed" class="text-danger">* please enter a valid email address</small>
+    <input (blur) = validateEmail() [(ngModel)]="userToUpdate.email" type="email" placeholder="Email" class="form-control col-10 offset-1" />
+    <small *ngIf="emailValidationFailed " class="text-danger">* please enter a valid email address</small>
 </div>
 <div class="form-group col-10 p-0 offset-1">
     <mat-radio-group aria-label="Select an option" [(ngModel)]="userToUpdate.role">
@@ -20,8 +20,8 @@
     </mat-radio-group>
 </div>
 <div class="form-group text-center">
-    <input type="number" [(ngModel)]="userToUpdate.mobile" placeholder="Mobile Number (Optional)" class="form-control col-10 offset-1" />
-    <small *ngIf="mobileValidationFailed" class="text-danger" >* please enter valid mobile number</small>
+    <input (blur) = validateMobile() type="number" [(ngModel)]="userToUpdate.mobile" placeholder="Mobile Number (Optional)" class="form-control col-10 offset-1" />
+    <small *ngIf="mobileValidationFailed " class="text-danger" >* please enter valid mobile number</small>
 </div>
 <div class="form-group text-center">
     <button (click)="onCreateClick()" class="btn btn-warning col-10 text-white">{{ isEditor?'Update':'ADD'}} USER</button>

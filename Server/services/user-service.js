@@ -38,7 +38,7 @@ exports.getUser = function (id, callback, errCallback) {
         if (err) {
             errCallback(JSON.stringify(err, null, 2));
         } else {
-            callback(data);
+            callback(data.Item);
         }
     });
 }
@@ -54,7 +54,20 @@ exports.createUser = function (user, callback, errCallback) {
         if (err) {
             errCallback(JSON.stringify(err, null, 2));
         } else {
-            callback(data.Item);
+            // returning the created user
+            params = {
+                TableName: tableName,
+                Key: {
+                    "id": user.id
+                }
+            };
+            docClient.get(params, function (err, data) {
+                if (err) {
+                    errCallback(JSON.stringify(err, null, 2));
+                } else {
+                    callback(data.Item);
+                }
+            });
         }
     });
 }
