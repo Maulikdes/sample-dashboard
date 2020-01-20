@@ -28,7 +28,7 @@ AWS Secret Access Key [None]: Test
 Default region name [None]: ap-south-1
 Default output format [None]: json
 ```
-Now go to DB/dynamodb_local_latest folder and run the db using command. This will start the db
+Now go to DB/dynamodb_local_latest folder and run the db using following command. This will start the db
 ```
 java -D"java.library.path=./DynamoDBLocal_lib" ar DynamoDBLocal.jar -sharedDb
 ```
@@ -49,8 +49,7 @@ ng serve
 ```
 
 ### Notes
-One can also test ui with the json-server if don't want to run db and server
-go to json-server folder and run
+One can also test ui with the json-server if don't want to run db and server For that go to json-server folder and run
 ```
 npm install
 ```
