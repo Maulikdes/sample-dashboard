@@ -23,6 +23,7 @@ export class UserTableComponent implements AfterViewInit, OnInit {
   public modalRef: BsModalRef;
   public selectedUser: UserInfo;
   public isShowTable: boolean = true;
+  private searchValue : string ='';
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'email', 'role', 'status', 'actions'];
@@ -87,6 +88,7 @@ export class UserTableComponent implements AfterViewInit, OnInit {
 
   onSuccessCallback(): void {
     this.toastr.success("The User has been " + this.action == "add" ? "added" : "updated" + " Successfully!");
+    this.applyFilter(this.searchValue);
     this.modalRef.hide();
   }
 

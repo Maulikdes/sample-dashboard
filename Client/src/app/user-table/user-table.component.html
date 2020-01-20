@@ -5,7 +5,7 @@
     </div>
     <div class="col-8 col-lg-4 row header pull-right">
       <div class="col-8">
-        <input type="text" placeholder="Search" (keyup)="applyFilter($event.target.value)"  class="form-control" />
+        <input type="text" placeholder="Search" [(ngModel)]="searchValue" (keyup)="applyFilter($event.target.value)"  class="form-control" />
         <i class="search_ico"></i>
       </div>
       <div class="col-4">

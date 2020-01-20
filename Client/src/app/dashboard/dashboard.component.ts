@@ -30,6 +30,8 @@ export class DashboardComponent implements OnInit {
 
     constructor(private userService : UserService) {
       userService.getUsers().subscribe( data => {
+        this.statusCount = {};
+        this.roleCount = {};
         data.map(user => {
           if(this.statusCount[user.status]){
             this.statusCount[user.status] += 1;
