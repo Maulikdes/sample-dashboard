@@ -30,7 +30,7 @@ Default output format [None]: json
 ```
 Now go to DB/dynamodb_local_latest folder and run the db using following command. This will start the db
 ```
-java -D"java.library.path=./DynamoDBLocal_lib" ar DynamoDBLocal.jar -sharedDb
+java -D"java.library.path=./DynamoDBLocal_lib" -jar DynamoDBLocal.jar -sharedDb
 ```
 
 Go to Server folder and run commands to start the server
