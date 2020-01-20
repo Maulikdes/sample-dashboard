@@ -18,7 +18,7 @@ exports.validateUser = function (user) {
     if (user.mobile) {
         // simple mobile regex (10 digits and first digit is non zero)
         let re = /^[1-9]{1}[0-9]{9}$/
-        if (!re.test(String(this.userToUpdate.mobile.toString()))) {
+        if (!re.test(String(user.mobile.toString()))) {
             userValidated = false;
             validationMessages.push("mobile number is not valid");
         }
