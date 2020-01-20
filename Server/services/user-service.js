@@ -1,10 +1,10 @@
-var user = require('../models/user')
 var AWS = require("aws-sdk");
+var dbConfig = require("./../configuration/config");
 
 // setting aws dynamo db
 AWS.config.update({
     region: "ap-south-1",
-    endpoint: "http://localhost:8000"
+    endpoint: dbConfig.dbUrl
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient()
