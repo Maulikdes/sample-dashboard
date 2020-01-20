@@ -36,13 +36,13 @@ export class DashboardComponent implements OnInit {
           }else{
             this.statusCount[user.status] = 1;
 
-            // set color order as per the status (i.e. green for the active)
+            // set color order as per the status
             if(user.status=='Active'){
-              this.pieChartUserColors[0].backgroundColor.push("#96bf65");
+              this.pieChartUserColors[0].backgroundColor.push("#2979FF");
             }else if(user.status=='Inactive'){
-              this.pieChartUserColors[0].backgroundColor.push("#d21e2b");
+              this.pieChartUserColors[0].backgroundColor.push("#FFAF29");
             }else{
-              this.pieChartUserColors[0].backgroundColor.push("#845b4d");
+              this.pieChartUserColors[0].backgroundColor.push("#FFCB76");
             }
           }
           if(this.roleCount[user.role]){
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
             if(user.role=='Admin'){
               this.pieChartRoleColors[0].backgroundColor.push("#1f3057");
             }else{
-              this.pieChartRoleColors[0].backgroundColor.push("#cec093");
+              this.pieChartRoleColors[0].backgroundColor.push("#E3E3E3");
             }
           }
         });
